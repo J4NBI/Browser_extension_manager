@@ -179,3 +179,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .select-btn {
+    @apply active:bg-red-400 dark:active:text-neutral-900 active:text-white focus:bg-red-400 dark:focus:text-neutral-900 focus:text-white py-2 px-6 text-xl bg-white dark:bg-neutral-600 rounded-[100px] font-semibold;
+  }
+
+  .btn {
+    @apply active:bg-red-400 active:text-neutral-900 py-2 px-6 text-xl bg-white dark:bg-none rounded-[100px] font-normal dark:bg-neutral-0/0  border;
+  }
+}

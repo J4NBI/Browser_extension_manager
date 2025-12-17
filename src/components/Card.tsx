@@ -102,17 +102,25 @@ export const tools = [
 
 const Card = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-4">
+    <div className="grid lg:grid-cols-2 xl:grid-cols-3 w-[90%] gap-4">
       {tools.map((tool, index) => (
-        <div key={index} className="bg-neutral-600/50 border-2 rounded-xl w-80">
-          <div>
-            <img src={tool.img} alt={`Icon ${tool.name}`} />
-            <div>
-              <h2>{tool.name}</h2>
-              <p>{tool.description}</p>
+        <div
+          key={index}
+          className="w-full max-w-[450px] mx-auto flex-1 min-w-60 bg-neutral-50/50 dark:bg-neutral-800 border-2 rounded-xl p-6"
+        >
+          <div className="flex flex-col items-start justify-center">
+            <div className="flex gap-4 items-start mb-10">
+              <img src={tool.img} alt={`Icon ${tool.name}`} />
+              <div>
+                <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-0">
+                  {tool.name}
+                </h2>
+                <p className="opacity-70 font-medium">{tool.description}</p>
+              </div>
             </div>
-            <div>
-              <button>Remove</button>
+
+            <div className="w-full flex justify-between">
+              <button className="btn">Remove</button>
               <SwitchSlider />
             </div>
           </div>
