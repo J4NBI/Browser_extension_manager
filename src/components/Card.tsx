@@ -16,7 +16,7 @@ import LogoStyleSpy from "../assets/images/logo-style-spy.svg";
 import LogoTabMasterPro from "../assets/images/logo-tab-master-pro.svg";
 import LogoViewportBuddy from "../assets/images/logo-viewport-buddy.svg";
 
-export const tools = [
+export const toolsJSON = [
   {
     img: LogoConsolePlus,
     name: "Console Plus",
@@ -100,32 +100,113 @@ export const tools = [
   },
 ];
 
-const Card = () => {
+const Card = (props: any) => {
+  let [tools, setTools] = React.useState(toolsJSON);
+
+  console.log(tools);
+
+  function handleEnabled(index: number) {
+    setTools((prev) =>
+      prev.map((tool, toolIndex) =>
+        toolIndex === index ? { ...tool, isOn: !tool.isOn } : tool
+      )
+    );
+  }
+
+  function handleRemove(index: any) {
+    setTools((prev) => prev.filter((p, pIndex) => pIndex !== index));
+  }
   return (
     <div className="grid lg:grid-cols-2 xl:grid-cols-3 w-[90%] gap-4">
-      {tools.map((tool, index) => (
-        <div
-          key={index}
-          className="w-full max-w-[450px] mx-auto flex-1 min-w-60 bg-neutral-50/50 dark:bg-neutral-800 border-2 rounded-xl p-6"
-        >
-          <div className="flex flex-col items-start justify-center">
-            <div className="flex gap-4 items-start mb-10">
-              <img src={tool.img} alt={`Icon ${tool.name}`} />
-              <div>
-                <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-0">
-                  {tool.name}
-                </h2>
-                <p className="opacity-70 font-medium">{tool.description}</p>
+      {/* SHOW ALL*/}
+      {props.isAll &&
+        tools.map((tool, index) => (
+          <div
+            key={index}
+            className="w-full max-w-[450px] mx-auto flex-1 min-w-60 bg-neutral-50/50 dark:bg-neutral-800 border-2 rounded-xl p-6"
+          >
+            <div className="flex flex-col items-start justify-center">
+              <div className="flex gap-4 items-start mb-10">
+                <img src={tool.img} alt={`Icon ${tool.name}`} />
+                <div>
+                  <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-0">
+                    {tool.name}
+                  </h2>
+                  <p className="opacity-70 font-medium">{tool.description}</p>
+                </div>
+              </div>
+
+              <div className="w-full flex justify-between">
+                <button onClick={() => handleRemove(index)} className="btn">
+                  Remove
+                </button>
+                <SwitchSlider isOn={tool.isOn} index={index} handleEnabled={handleEnabled} />
               </div>
             </div>
-
-            <div className="w-full flex justify-between">
-              <button className="btn">Remove</button>
-              <SwitchSlider />
-            </div>
           </div>
-        </div>
-      ))}
+        ))}
+
+      {/* SHOW Active*/}
+
+      {props.isActive &&
+        tools.map((tool, index) =>
+          tool.isOn ? (
+            <div
+              key={index}
+              className="w-full max-w-[450px] mx-auto flex-1 min-w-60 bg-neutral-50/50 dark:bg-neutral-800 border-2 rounded-xl p-6"
+            >
+              <div className="flex flex-col items-start justify-center">
+                <div className="flex gap-4 items-start mb-10">
+                  <img src={tool.img} alt={`Icon ${tool.name}`} />
+                  <div>
+                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-0">
+                      {tool.name}
+                    </h2>
+                    <p className="opacity-70 font-medium">{tool.description}</p>
+                  </div>
+                </div>
+
+                <div className="w-full flex justify-between">
+                  <button onClick={() => handleRemove(index)} className="btn">
+                    Remove
+                  </button>
+                  <SwitchSlider isOn={tool.isOn} index={index} handleEnabled={handleEnabled} />
+                </div>
+              </div>
+            </div>
+          ) : null
+        )}
+
+      {/* SHOW Active*/}
+
+      {props.isInActive &&
+        tools.map((tool, index) =>
+          !tool.isOn ? (
+            <div
+              key={index}
+              className="w-full max-w-[450px] mx-auto flex-1 min-w-60 bg-neutral-50/50 dark:bg-neutral-800 border-2 rounded-xl p-6"
+            >
+              <div className="flex flex-col items-start justify-center">
+                <div className="flex gap-4 items-start mb-10">
+                  <img src={tool.img} alt={`Icon ${tool.name}`} />
+                  <div>
+                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-0">
+                      {tool.name}
+                    </h2>
+                    <p className="opacity-70 font-medium">{tool.description}</p>
+                  </div>
+                </div>
+
+                <div className="w-full flex justify-between">
+                  <button onClick={() => handleRemove(index)} className="btn">
+                    Remove
+                  </button>
+                  <SwitchSlider isOn={tool.isOn} index={index} handleEnabled={handleEnabled} />
+                </div>
+              </div>
+            </div>
+          ) : null
+        )}
     </div>
   );
 };
